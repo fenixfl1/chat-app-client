@@ -1,10 +1,13 @@
 import React from "react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import PageLayoutWrapper from "./components/PageLayoutWrapper";
-import Login from "./pages/Login";
+import { AuthProvider } from "./context";
+import Routes from "./routes";
 
 const App = (): React.ReactElement => {
-  return <Login />;
+  return (
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  );
 };
 
 export default App;

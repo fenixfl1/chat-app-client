@@ -1,4 +1,6 @@
-type UserData = {
+export type UserData = {
+  loading: boolean;
+  errorMessage: string | undefined;
   username: string;
   userId: string;
   email: string;
@@ -8,4 +10,7 @@ type UserData = {
   };
 };
 
-export type { UserData };
+export type LoginUser = {
+  USERNAME: string;
+  PASSWORD: string;
+};

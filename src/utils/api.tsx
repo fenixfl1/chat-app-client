@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosResponse } from "axios";
-import { WEB_SERVICE_API_LOGIN } from "../constant/routes";
-import { UserData } from "../types";
-import { createSession, getSessionToken } from "./session";
+import { getSessionToken } from "./session";
+import socketio from "socket.io-client";
+import { SOCKET_SERVICE_URL } from "../constant/routes";
+
+export const socket = socketio(`${SOCKET_SERVICE_URL}`);
 
 type RequestHeaders = {
   headers: {
@@ -40,21 +41,8 @@ export function putRequest<T>(
   return result;
 }
 
-function getRequest<T>(url: string): Promise<AxiosResponse<T>> {
+export function getRequest<T>(url: string): Promise<AxiosResponse<T>> {
   const config = getResponseParams();
 
   return axios.get(url, config);
 }
-
-export const loginUser = (EMAIL: string, PASSWORD: string): void => {
-  const login = postRequest<UserData>(WEB_SERVICE_API_LOGIN, {
-    EMAIL,
-    PASSWORD,
-  });
-
-  login.then((response) => {
-    createSession(response.data);
-    // eslint-disable-next-line no-console
-    console.log({ user: response.data.email });
-  });
-};

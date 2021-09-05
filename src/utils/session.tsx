@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { UserData } from "../types";
 
-const COOKIE_KEY_USER_DATA = "chatAppUserData";
-const COOKIE_KEY_SESSION_TOKEN = "chatAppSession";
+const COOKIE_KEY_USER_DATA = "user-data";
+const COOKIE_KEY_SESSION_TOKEN = "user-session";
 
 export const isLoggedIn = (): boolean => {
   const requiredCookiesKeys = [COOKIE_KEY_SESSION_TOKEN, COOKIE_KEY_USER_DATA];
@@ -16,6 +16,7 @@ export const createSession = (user: UserData): void => {
   const { username, sessionCookie, userId, email } = user;
   const { token: sessionToken, expiration: sessionExpiration } = sessionCookie;
   const cookiesExpiration = new Date(sessionExpiration);
+
   const sessionInfo = JSON.stringify({
     username,
     userId,
